@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import './App.css'
 
 const themes = {
@@ -772,46 +773,89 @@ function App() {
   const theme = themes[currentTheme]
 
   return (
-    <div className={`min-h-screen ${theme.bg} ${theme.text} overflow-x-hidden`}>
-      <div className="fixed inset-0 pointer-events-none">
-        <div className={`absolute top-20 -left-20 w-96 h-96 ${theme.blob1} rounded-full blur-3xl`}></div>
-        <div className={`absolute bottom-40 -right-20 w-80 h-80 ${theme.blob2} rounded-full blur-3xl`}></div>
-        <div className={`absolute top-1/2 left-1/3 w-64 h-64 ${theme.blob3} rounded-full blur-3xl`}></div>
-      </div>
+    <div className={`min-h-screen ${theme.bg} ${theme.text}`}>
 
       <header className="relative pt-20 pb-32">
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="relative">
-              <div className={`absolute -inset-4 bg-gradient-to-br ${theme.glow} rounded-3xl blur-xl opacity-75`}></div>
-              <img 
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div 
+                className={`absolute -inset-4 bg-gradient-to-br ${theme.glow} rounded-3xl blur-xl opacity-75`}
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.img 
                 src={personalInfo.profileImage} 
                 alt={personalInfo.name}
-                className="relative w-96 h-96 rounded-3xl border-4 border-white/20 shadow-2xl object-cover transform -rotate-3 hover:rotate-0 transition-transform duration-500"
+                className="relative w-96 h-96 rounded-3xl border-4 border-white/20 shadow-2xl object-cover transform -rotate-3"
+                whileHover={{ rotate: 0, scale: 1.02 }}
+                transition={{ duration: 0.5 }}
               />
-            </div>
-            <div className="text-center lg:text-left flex-1">
-              <div className="inline-block px-4 py-1 bg-white/10 rounded-full text-sm mb-4 border border-white/20">
+            </motion.div>
+            <motion.div 
+              className="text-center lg:text-left flex-1"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div 
+                className="inline-block px-4 py-1 bg-white/10 rounded-full text-sm mb-4 border border-white/20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
                 Solution Architect
-              </div>
-              <h1 className={`web-title text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}>
+              </motion.div>
+              <motion.h1 
+                className={`web-title text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
                 {personalInfo.name}
-              </h1>
-              <p className={`text-xl md:text-2xl ${theme.textMuted} mb-6 max-w-2xl`}>
+              </motion.h1>
+              <motion.p 
+                className={`text-xl md:text-2xl ${theme.textMuted} mb-6 max-w-2xl`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
                 {personalInfo.title}
-              </p>
-              <div className={`flex flex-wrap justify-center lg:justify-start gap-6 ${theme.textMuted2}`}>
+              </motion.p>
+              <motion.div 
+                className={`flex flex-wrap justify-center lg:justify-start gap-6 ${theme.textMuted2}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
                 <span className="flex items-center gap-2">📍 {personalInfo.location}</span>
                 <span className="flex items-center gap-2">📧 {personalInfo.email}</span>
                 <span className="flex items-center gap-2">📞 {personalInfo.phone}</span>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
-        <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${theme.gradient} to-transparent`}></div>
+        <motion.div 
+          className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${theme.gradient} to-transparent`}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        />
       </header>
 
-      <nav className={`sticky top-0 z-50 backdrop-blur-xl ${theme.bg}/80 border-b ${theme.border}`}>
+      <motion.nav 
+        className={`sticky top-0 z-50 backdrop-blur-xl ${theme.bg}/80 border-b ${theme.border}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-2 py-3">
             <div className="flex overflow-x-auto gap-2 scrollbar-hide">
@@ -834,7 +878,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               {Object.entries(themes).map(([key, t]) => (
-                <button
+                <motion.button
                   key={key}
                   onClick={() => setCurrentTheme(key)}
                   className={`w-8 h-8 rounded-full transition-all ${
@@ -843,13 +887,15 @@ function App() {
                       : 'opacity-60 hover:opacity-100'
                   }`}
                   title={t.name}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
                   style={{ background: key === 'creative' ? '#91e72c' : key === 'ocean' ? '#0ea5e9' : key === 'sunset' ? '#f97316' : key === 'forest' ? '#10b981' : key === 'minimal' ? '#6b7280' : '#06b6d4' }}
                 />
               ))}
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       <main className="container mx-auto px-4 py-12 relative z-10">
         <section id="about" className="mb-16">
@@ -948,10 +994,8 @@ function App() {
             <h2 className="text-3xl font-bold">Core Competencies</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {Object.entries(competencies).map(([category, skills], idx) => (
-              <div key={category} className={`bg-gradient-to-br p-6 rounded-2xl border border-white/10 backdrop-blur ${
-                idx % 2 === 0 ? theme.bgAlt : theme.bgAlt 
-              }`}>
+            {Object.entries(competencies).map(([category, skills]) => (
+              <div key={category} className={`bg-gradient-to-br p-6 rounded-2xl border border-white/10 backdrop-blur ${theme.bgAlt}`}>
                 <h3 className={`text-lg font-bold ${theme.accent2} mb-4 flex items-center gap-2`}>
                   <span className={`w-3 h-3 bg-gradient-to-r ${theme.gradient} rounded-full`}></span>
                   {category}
@@ -967,26 +1011,6 @@ function App() {
               </div>
             ))}
           </div>
-
-          <div className="mt-8">
-            <h3 className={`text-xl font-bold mb-6 flex items-center gap-2`}>
-              <span className={theme.accent}>⬡</span> Technology Stack
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {Object.entries(techStack).map(([category, techs]) => (
-                <div key={category} className={`${theme.bgAlt} rounded-2xl p-6 border border-white/10`}>
-                  <h4 className={`font-semibold ${theme.accent2} mb-4`}>{category}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {techs.map((tech, idx) => (
-                      <span key={idx} className={`px-3 py-1.5 ${theme.cardBg} ${theme.textMuted} rounded-lg text-sm border ${theme.border}`}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         <section id="projects" className="mb-16">
@@ -1000,7 +1024,7 @@ function App() {
             {projects.map((project, idx) => (
               <div key={idx} className={`bg-gradient-to-br ${theme.bgAlt} backdrop-blur rounded-2xl p-6 border border-white/10 hover:${theme.accent}/50 transition-all group`}>
                 <div className="flex items-start gap-4 mb-4">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${theme.accent}/30 ${theme.glow.split(' ')[0].replace('from-', '')}/30 flex items-center justify-center ${theme.accent} font-bold`}>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${theme.accent}/30 flex items-center justify-center ${theme.accent} font-bold`}>
                     {idx + 1}
                   </div>
                   <div className="flex-1">
@@ -1034,18 +1058,22 @@ function App() {
           <p className={`${theme.textMuted2} mb-8`}>Projects from my Behance portfolio showcasing web development and PSD conversion work.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {webWorks.map((work, idx) => (
-              <a 
+              <motion.a 
                 key={idx} 
                 href={work.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`${theme.bgAlt} rounded-2xl overflow-hidden hover:${theme.bgAlt} transition group border border-white/10 hover:${theme.accent}/50`}
+                className={`${theme.bgAlt} rounded-2xl overflow-hidden transition group border border-white/10`}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
               >
                 <div className="h-48 overflow-hidden">
-                  <img 
+                  <motion.img 
                     src={work.thumbnail} 
                     alt={work.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ duration: 0.5 }}
                   />
                 </div>
                 <div className="p-5">
@@ -1060,7 +1088,7 @@ function App() {
                     <span>{work.appreciations} ★</span>
                   </div>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
         </section>
